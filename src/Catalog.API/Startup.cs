@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Catalog.API.Data.Interfaces;
+using Catalog.API.Repository;
+using Catalog.API.Repository.Interfaces;
 using Catalog.API.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,7 @@ namespace Catalog.API
             services.AddSingleton<ICatalogDatabaseSettings>(x => x.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
 
             services.AddTransient<ICatalogContext, CatalogContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
