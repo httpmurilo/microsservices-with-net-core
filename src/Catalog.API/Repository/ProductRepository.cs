@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Catalog.API.Data.Interfaces;
 using Catalog.API.Entities;
@@ -36,11 +37,11 @@ namespace Catalog.API.Repository
             return await _context.Products.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async  Task<IEnumerable<Product>> GetProductByCategory(string categoryName)
+        public async  Task<List<Product>> GetProductByCategory(string categoryName)
         {
-            FilterDefinition<Product> filter = Builders<Product>.Filter.ElemMatch(x => x.Category, categoryName);
+            var result =  _context.Products.AsQueryable().Where(x => x.Category.Contains(categoryName));
 
-            return await _context.Products.Find(filter).ToListAsync();
+            return await Task.FromResult(result.ToList());
         }
 
         public async Task<IEnumerable<Product>> GetProductByName(string name)

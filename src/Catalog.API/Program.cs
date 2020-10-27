@@ -20,6 +20,7 @@ namespace Catalog.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("http://localhost:5010");
                     webBuilder.UseStartup<Startup>();
                 });
     }

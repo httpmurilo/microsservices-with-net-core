@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Catalog.API.Entities;
-using Catalog.API.Repository;
+using Catalog.API.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,10 +13,10 @@ namespace Catalog.API.Controllers
     [ApiController]
     public class CatalogController : ControllerBase
     {
-        private readonly ProductRepository _repository;
+        private readonly IProductRepository _repository;
         private readonly ILogger<CatalogController> _logger;
 
-        public CatalogController(ProductRepository repository, ILogger<CatalogController> logger)
+        public CatalogController(IProductRepository repository, ILogger<CatalogController> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger;
@@ -36,7 +36,10 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> GetProductById(string id)
         {
             var product = await _repository.GetProduct(id);
-            return (product == null) ? new NotFoundResult() : new OkObjectResult(product);
+            if(product == null)
+                return NotFound();
+
+            return Ok(product);
         }
 
         [HttpGet("[action]/{categoryName}")]
@@ -44,7 +47,10 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategory(string categoryName)
         {
             var products = await _repository.GetProductByCategory(categoryName);
-            return (products == null) ? new NotFoundResult() : new OkObjectResult(products);
+            if(products == null)
+                return NotFound();
+
+            return Ok(products);
         }
 
         [HttpPost]
@@ -52,7 +58,7 @@ namespace Catalog.API.Controllers
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
             await _repository.Create(product);
-            return CreatedAtAction("GetProduct", new { id = product.Id}, product);
+            return Ok("created");
         }
 
         [HttpPut]
