@@ -1,4 +1,8 @@
-Projeto em desenvolvimento.
+Projeto de estudo com MicroServices.
 
 Catalog.API 
-Api que 
+Api realiza o CRUD de Produtos
+
+Stacks usadas : 
+- WebApi.
+- MongoDB.
