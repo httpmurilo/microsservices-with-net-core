@@ -1,12 +1,23 @@
 Projeto de estudo com MicroServices.
 
 Catalog.API 
-Api realiza o CRUD de Produtos
+Api realiza o CRUD de Produtos.
 
 Stacks usadas : 
 - WebApi.
 - MongoDB.
 
-Para iniciar o MongoDB :
+Documentação : 
+´´´
+http://localhost:8000/index.html
+´´´
 
-docker run -d -p 27017:27017 --name catalog-mongo mongo
+Para execução da orquestração :
+´´´
+ docker-compose -f docker-compose.yml -f docker-compose.override.yml  up -d 
+´´´
+
+Para exclusão de uma imagem :
+´´´
+docker container rm container_id
+´´´
