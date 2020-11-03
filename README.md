@@ -1,6 +1,6 @@
 Projeto de estudo com MicroServices.
 
-Catalog.API 
+1 . Catalog.API 
 Api realiza o CRUD de Produtos.
 
 Stacks usadas : 
@@ -9,7 +9,7 @@ Stacks usadas :
 
 Documentação : 
 ´´´
-http://localhost:8000/index.html
+http://localhost:8000/swagger/v1/swagger.json
 ´´´
 
 Para execução da orquestração :
@@ -21,3 +21,6 @@ Para exclusão de uma imagem :
 ´´´
 docker container rm container_id
 ´´´
+
+2. Basket.API
+Api utilizada para cadastro do Carrinho com Redis.
